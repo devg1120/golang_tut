@@ -1,0 +1,57 @@
+
+<home>/
+ |-- greetings/
+ |-- hello/
+
+################################
+mkdir greetings
+cd greetings
+
+go mod init example.com/greetings
+
+---------------------  greetings.go
+package greetings
+
+import "fmt"
+
+// Hello returns a greeting for the named person.
+func Hello(name string) string {
+    // Return a greeting that embeds the name in a message.
+    message := fmt.Sprintf("Hi, %v. Welcome!", name)
+    return message
+}
+---------------------
+
+
+################################
+cd ..
+mkdir hello
+cd hello
+
+go mod init example.com/hello
+
+---------------------  hello.go
+package main
+
+import (
+    "fmt"
+
+    "example.com/greetings"
+)
+
+func main() {
+    // Get a greeting message and print it.
+    message := greetings.Hello("Gladys")
+    fmt.Println(message)
+}
+---------------------  
+
+go mod edit -replace example.com/greetings=../greetings
+
+go mod tidy
+
+go run .
+
+go build  -o hello.bin .
+./hello.bin
+

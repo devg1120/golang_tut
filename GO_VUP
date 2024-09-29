@@ -1,0 +1,11 @@
+
+https://qiita.com/ma91n/items/d99e9c89e4bd0e15cc92
+
+
+go version
+GO_VER="1.22.0"
+ARCH="amd64"
+sudo curl -sSL "https://go.dev/dl/go${GO_VER}.linux-${ARCH}.tar.gz" | sudo tar -xz -C /usr/local/
+which go
+go version
+

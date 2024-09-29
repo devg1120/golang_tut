@@ -1,0 +1,5 @@
+
+
+go mod init devg1120.com/risor_test01
+go install github.com/risor-io/risor@latest
+go get github.com/risor-io/risor

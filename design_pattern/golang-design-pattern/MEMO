@@ -1,0 +1,4 @@
+cd ./00_simple_factory
+go mod init devg1120/00_simple_factory
+go tidy
+go test -v
