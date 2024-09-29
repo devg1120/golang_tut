@@ -10,9 +10,9 @@ import (
 
 func main() {
 	ctx := context.Background()
-	//script := "math.sqrt(input)"
-	//result, err := risor.Eval(ctx, script, risor.WithGlobal("input", 4))
-        result, err := risor.Eval(ctx, "math.min([5, 2, 7])")
+	script := "math.sqrt(input)"
+	result, err := risor.Eval(ctx, script, risor.WithGlobal("input", 16))
+        //result, err := risor.Eval(ctx, "math.min([5, 2, 7])")
 
 	if err != nil {
 		log.Fatal(err)
