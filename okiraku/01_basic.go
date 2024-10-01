@@ -24,6 +24,11 @@ func pf() {
 	fmt.Printf("\n----------------------/ %s /---\n\n", runtime.FuncForPC(pc).Name())
 }
 
+func sp() {
+        fmt.Printf("----\n")
+}
+//*****************************************************************************
+
 func hello() {
 	pf()
 	fmt.Println("hello, world")
@@ -234,6 +239,40 @@ func map_test() {
 	fmt.Println(sum)
 }
 
+func print_test() {
+	pf()
+    fmt.Printf("%d, %x, %o\n", 100, 100, 100)
+    fmt.Printf("[%d]\n", 10)
+    fmt.Printf("[%4d]\n", 10)
+    fmt.Printf("[%4d]\n", 100000)
+    fmt.Printf("[%4d]\n", 123456)
+    fmt.Printf("[%-8d]\n", 123456)
+    fmt.Printf("[%08d]\n", 123456)
+
+
+    sp()
+    type Foo struct {
+        bar, baz int
+    }
+    a := 123456789
+    b := Foo{10, 20}
+    fmt.Printf("%v\n", a)
+    fmt.Printf("%T\n", a)
+    fmt.Printf("%v\n", b)
+    fmt.Printf("%+v\n", b)
+    fmt.Printf("%#v\n", b)
+    fmt.Printf("%T\n", b)
+
+    sp()
+    z := "hello, world"
+    fmt.Printf("[%s]\n", z)
+    fmt.Printf("[%20s]\n", z)
+    fmt.Printf("[%-20s]\n", z)
+    fmt.Printf("[%q]\n", z)
+    fmt.Printf("[%20q]\n", z)
+    fmt.Printf("[%-20q]\n", z)
+
+}
 func main() {
 	hello()
 	sample01()
@@ -244,4 +283,5 @@ func main() {
 	array_2d() // 2d array
 	slice()
 	map_test()
+	print_test()
 }

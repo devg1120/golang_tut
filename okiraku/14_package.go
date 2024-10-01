@@ -1,11 +1,11 @@
 package main
 
-import "math"
-import "strconv"
 import (
-    "math/rand"
-    "time"
+    "foo"
+    "bar"
 )
+
+
 /*******************************************************************/
 import "fmt"
 import "os"
@@ -54,10 +54,38 @@ func spt(title string) {
 }
 
 /*******************************************************************/
+/*
+ # tree sample
 
-// ==================================================================
+      sample/
+      |-- bar
+      |   |-- bar.go
+      |   `-- go.mod
+      `-- foo
+          |-- foo.go
+          `-- go.mod
+*/
+/*
+ # cat ./go.mod
+ replace foo => ./sample/foo
+ replace bar => ./sample/bar
+
+
+ # go get foo
+ # go get bar
+
+*/
+
+func package1_test() {
+    pf()
+    foo.Test()
+    fmt.Println("foo.A =", foo.A)
+    bar.Test()
+    fmt.Println("bar.A =", bar.A)
+}
 // ==================================================================
 // ==================================================================
 func main() {
 	fmt.Println("###", fn(), "###")
+        package1_test() 
 }
