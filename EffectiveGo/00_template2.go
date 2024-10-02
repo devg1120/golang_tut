@@ -11,60 +11,17 @@ import "regexp"
 /*******************************************************************/
 
 var farr = []string{
-	"func_arg",
+	"demo1",
+	"demo2",
+	"demo3",
 }
 var fdic = map[string]FUNC_ENTRY{
-	"func_arg":       func_arg_test,
+	"demo1":        demo1_test,
+	"demo2":        demo2_test,
+	"demo3":        demo3_test,
 }
 
 /*******************************************************************/
-
-func func1(x int) string {
-	return fmt.Sprint("hello world '", x, "'.")
-}
-
-func func2(x, y int) (int, int) {
-	return x + y, x - y
-}
-
-
-func func3(x, y int) (add, sub int) {
-	add = x + y
-	sub = x - y
-	return
-}
-
-func func4(i ...int) int {
-	fmt.Println("------")
-	fmt.Println(i)
-	sum := 0
-	for _, v := range i {
-		sum += v
-	}
-	return sum
-}
-func func_arg_test() {
-        pf()
-	fmt.Println(func1(1234))
-	fmt.Println(func1(5678))
-	sp()
-	x, y := func2(10, 5)
-	fmt.Println(x)
-	fmt.Println(y)
-	spt("named return arg")
-	x, y = func3(10, 5)
-	fmt.Println(x)
-	fmt.Println(y)
-	spt("variable length arg")
-	fmt.Println(func4())
-	fmt.Println(func4(1))
-	fmt.Println(func4(1, 2))
-	fmt.Println(func4(1, 2, 3))
-	s := []int{1, 2, 3, 4}
-	fmt.Println(func4(s...))
-}
-//--------------------------------------------------------------
-
 func demo1_test() {
         pf()
         sp()

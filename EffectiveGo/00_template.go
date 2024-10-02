@@ -64,5 +64,8 @@ func spt(title string) {
 	fmt.Printf("--------------------- %s \n", title)
 }
 
+func p(a ...interface{}) {
+    fmt.Println(a...)
+}
 /*******************************************************************/
 

@@ -5,30 +5,43 @@ import "os"
 import "runtime"
 import "path/filepath"
 import "time"
+import "reflect"
+import "regexp"
 
 /*******************************************************************/
-func main() {
+
+var farr = []string{
+	"if",
+	"for",
+	"switch",
+	"defer",
+	"defer2",
+	"select",
+	"dynamic_func",
+}
+var fdic = map[string]FUNC_ENTRY{
+	"if":           if_test,
+	"for":          for_test,
+	"switch":       switch_test,
+	"defer":        defer_test,
+	"defer2":       defer2_test,
+	"select":       select_test,
+	"dynamic_func": dynamic_func_test,
+}
+
+func main_org() {
 	fmt.Println("###", fn(), "###")
-	demo1_test()
-	demo2_test()
+
 	if_test()
 	for_test()
 	switch_test()
 	defer_test()
 	defer2_test()
 	select_test()
+	dynamic_func_test()
 }
 
 /*******************************************************************/
-
-func demo1_test() {
-	pf()
-	sp()
-}
-func demo2_test() {
-	pfm("ABC")
-	spt("TITLE")
-}
 
 func if_test() {
 	pf()
@@ -68,6 +81,26 @@ func for_test() {
 	for i, fruit := range fruits {
 		fmt.Println(i, fruit)
 	}
+	spt("bleak label")
+
+OuterLoop:
+	for i := 0; i < 3; i++ {
+		fmt.Printf("i: %d\n", i)
+
+		for j := 0; j < 3; j++ {
+			fmt.Printf("j: %d\n", j)
+			if j == 2 {
+				fmt.Println("inner loop")
+				break OuterLoop
+			}
+		}
+
+		if i == 2 {
+			fmt.Println("outer loop")
+			break
+		}
+	}
+	fmt.Println("done")
 }
 
 func switch_test() {
@@ -107,8 +140,6 @@ func switch_test() {
 		fmt.Printf("default: %v[%T]\n", v, v)
 	}
 }
-
-
 
 func defer_test() {
 	pf()
@@ -193,6 +224,31 @@ func select_test() {
 }
 
 /*******************************************************************/
+func function1() {
+	fmt.Println("print function1")
+}
+
+func function2() {
+	fmt.Println("print function2")
+}
+
+func function3() {
+	fmt.Println("print function3")
+}
+
+func dynamic_func_test() {
+	pf()
+	funcList := []func(){function1, function2, function3}
+
+	for i := 0; i < 3; i++ {
+		//p(reflect.TypeOf(funcList[i]))
+		fv := reflect.ValueOf(funcList[i])
+		p(runtime.FuncForPC(fv.Pointer()).Name())
+		funcList[i]()
+	}
+}
+
+/*******************************************************************/
 
 func fn() string {
 	_, file, _, _ := runtime.Caller(0)
@@ -233,6 +289,36 @@ func sp() {
 }
 func spt(title string) {
 	fmt.Printf("----------------- %s \n", title)
+}
+
+func p(a ...interface{}) {
+	fmt.Println(a...)
+}
+
+type FUNC_ENTRY func()
+
+func main() {
+
+	fmt.Println("###", fn(), "###")
+	if len(os.Args) < 2 {
+		for i := range farr {
+			fdic[farr[i]]()
+		}
+	} else {
+
+		for _, keyword := range os.Args[1:] {
+			//spt(keyword)
+			re := regexp.MustCompile(keyword)
+			for i := range farr {
+				name := farr[i]
+				if re.MatchString(name) {
+					fdic[name]()
+				}
+			}
+		}
+
+	}
+
 }
 
 /*******************************************************************/
